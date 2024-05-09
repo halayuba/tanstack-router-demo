@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition-duration: 200ms;
+  }
+
+  html {
+    @apply h-full scroll-smooth;
+  }
+
+  .wrapper {
+    @apply mx-auto mt-6 flex max-w-3xl flex-col gap-4 text-primary;
+  }
+
+  .page-header {
+    @apply text-center text-2xl font-semibold text-indigo-700;
+  }
+}
