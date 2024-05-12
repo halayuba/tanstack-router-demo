@@ -13,8 +13,11 @@ import {
 } from '@nextui-org/react'
 // import "./logo_iskanat.svg";
 import { Search } from 'lucide-react'
+import { useAuth } from '../../hooks/useAuth'
 
 export default function NavbarLayout() {
+  const auth = useAuth()
+
   const activeClass = {
     className: 'font-bold underline text-fuchsia-600',
   }
@@ -27,7 +30,7 @@ export default function NavbarLayout() {
             className="h-auto w-24 object-cover"
             alt="Logo"
           />
-          <p className="hidden font-bold text-inherit sm:block">ISKANAT</p>
+          {/* <p className="hidden font-bold text-inherit sm:block">ISKANAT</p> */}
         </NavbarBrand>
         <NavbarContent className="hidden gap-3 sm:flex">
           <NavbarItem>
@@ -36,16 +39,26 @@ export default function NavbarLayout() {
             </Link>
           </NavbarItem>
           <NavbarItem>
-            <Link to="/profile" activeProps={activeClass}>
-              {({ isActive }) => <>Profile {isActive && '*'}</>}
-            </Link>
-          </NavbarItem>
-          <NavbarItem>
             <Link to="/products" activeProps={activeClass}>
               Products
             </Link>
           </NavbarItem>
           <NavbarItem>
+            <Link to="/posts" activeProps={activeClass}>
+              Posts
+            </Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link to="/users" activeProps={activeClass}>
+              {({ isActive }) => <>Users {isActive && '*'}</>}
+            </Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link to="/search" activeProps={activeClass}>
+              Search
+            </Link>
+          </NavbarItem>
+          {/* <NavbarItem>
             <Link
               to="/search"
               activeProps={activeClass}
@@ -58,7 +71,7 @@ export default function NavbarLayout() {
             >
               Search
             </Link>
-          </NavbarItem>
+          </NavbarItem> */}
           {/* <NavbarItem>
             <Link
               to="/products/$id"
@@ -98,17 +111,17 @@ export default function NavbarLayout() {
             />
           </DropdownTrigger>
           <DropdownMenu aria-label="Profile Actions" variant="flat">
-            <DropdownItem key="profile" className="h-14 gap-2">
-              <p className="font-semibold">Signed in as</p>
-              <p className="font-semibold">zoey@example.com</p>
+            <DropdownItem key="profile">
+              <Link to="/profile">Profile</Link>
             </DropdownItem>
             <DropdownItem key="settings">My Settings</DropdownItem>
-            <DropdownItem key="team_settings">Team Settings</DropdownItem>
-            <DropdownItem key="analytics">Analytics</DropdownItem>
-            <DropdownItem key="system">System</DropdownItem>
-            <DropdownItem key="configurations">Configurations</DropdownItem>
+            <DropdownItem key="dashboard">Dashboard</DropdownItem>
             <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
-            <DropdownItem key="logout" color="danger">
+            <DropdownItem
+              key="logout"
+              color="danger"
+              onClick={() => auth.signOut()}
+            >
               Log Out
             </DropdownItem>
           </DropdownMenu>

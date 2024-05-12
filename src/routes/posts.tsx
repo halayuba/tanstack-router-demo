@@ -24,7 +24,7 @@ function Posts() {
     <div className="wrapper">
       <h3 className="page-header">Posts</h3>
       <div className="mt-6 flex flex-col items-center justify-center gap-2">
-        {posts && posts.map((x) => <div key={x.id}>{x.title}</div>)}
+        {posts?.map((x) => <div key={x.id}>{x.title}</div>)}
       </div>
     </div>
   )

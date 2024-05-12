@@ -19,7 +19,8 @@ import { Route as IndexImport } from './routes/index'
 import { Route as ProductsIndexImport } from './routes/products/index'
 import { Route as SnippetsSlugImport } from './routes/snippets.$slug'
 import { Route as ProductsIdImport } from './routes/products/$id'
-import { Route as Layout1UserIndexImport } from './routes/_layout1/user/index'
+import { Route as authLoginImport } from './routes/(auth)/login'
+import { Route as Layout1UsersIndexImport } from './routes/_layout1/users/index'
 
 // Create/Update Routes
 
@@ -63,8 +64,13 @@ const ProductsIdRoute = ProductsIdImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const Layout1UserIndexRoute = Layout1UserIndexImport.update({
-  path: '/user/',
+const authLoginRoute = authLoginImport.update({
+  path: '/login',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const Layout1UsersIndexRoute = Layout1UsersIndexImport.update({
+  path: '/users/',
   getParentRoute: () => Layout1Route,
 } as any)
 
@@ -92,6 +98,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SearchImport
       parentRoute: typeof rootRoute
     }
+    '/(auth)/login': {
+      preLoaderRoute: typeof authLoginImport
+      parentRoute: typeof rootRoute
+    }
     '/products/$id': {
       preLoaderRoute: typeof ProductsIdImport
       parentRoute: typeof rootRoute
@@ -104,8 +114,8 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductsIndexImport
       parentRoute: typeof rootRoute
     }
-    '/_layout1/user/': {
-      preLoaderRoute: typeof Layout1UserIndexImport
+    '/_layout1/users/': {
+      preLoaderRoute: typeof Layout1UsersIndexImport
       parentRoute: typeof Layout1Import
     }
   }
@@ -115,10 +125,11 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren([
   IndexRoute,
-  Layout1Route.addChildren([Layout1UserIndexRoute]),
+  Layout1Route.addChildren([Layout1UsersIndexRoute]),
   PostsRoute,
   ProfileRoute,
   SearchRoute,
+  authLoginRoute,
   ProductsIdRoute,
   SnippetsSlugRoute,
   ProductsIndexRoute,
